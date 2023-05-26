@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meals_app/Pages/Favorites.dart';
-import 'package:meals_app/Pages/MealsList.dart';
 import 'package:meals_app/Util/bottomNav.dart';
 import 'package:meals_app/Util/favouritesList.dart';
 
@@ -58,66 +56,76 @@ class _MealDetailsState extends State<MealDetails> {
                     ))
         ],
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: Height * 0.35,
-            child: Image.network(
-              focusedMeal.imageUrl,
-              fit: BoxFit.cover,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 15, bottom: 20),
-            child: Text(
-              "Ingredients",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  ?.copyWith(color: Colors.deepOrangeAccent.shade100),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Text(
-                    focusedMeal.ingredients[index],
-                    style: Theme.of(context).textTheme.bodyText2,
-                    textAlign: TextAlign.center,
-                  );
-                },
-                itemCount: focusedMeal.ingredients.length,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Hero(
+              tag: focusedMeal.id,
+              child: SizedBox(
+                height: Height * 0.35,
+                child: Image.network(
+                  focusedMeal.imageUrl,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: Text(
-              "Steps",
-              style: Theme.of(context)
-                  .textTheme
-                  .headline5
-                  ?.copyWith(color: Colors.deepOrangeAccent.shade100),
-            ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: ListView.builder(
-                itemBuilder: (context, index) {
-                  return Text(
-                    focusedMeal.steps[index],
-                    style: Theme.of(context).textTheme.bodyText2,
-                    textAlign: TextAlign.center,
-                  );
-                },
-                itemCount: focusedMeal.steps.length,
-              ),
-            ),
-          )
-        ],
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 70),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30, bottom: 20),
+                      child: Text(
+                        "Ingredients",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            ?.copyWith(color: Colors.deepOrangeAccent.shade100),
+                      ),
+                    ),
+                    ...({...focusedMeal.ingredients}.map((e) => Text(
+                          "•  $e\n",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2!
+                              .copyWith(height: 0.7),
+                          softWrap: true,
+                          textAlign: TextAlign.start,
+                        ))),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20, top: 20),
+                      child: Text(
+                        "Steps",
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline5
+                            ?.copyWith(color: Colors.deepOrangeAccent.shade100),
+                      ),
+                    ),
+                    ...({...focusedMeal.steps}.map((e) => Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              "•  ",
+                            ),
+                            Expanded(
+                              child: Text(
+                                "$e\n",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2!
+                                    .copyWith(height: 0.9),
+                                textAlign: TextAlign.start,
+                                softWrap: true,
+                              ),
+                            ),
+                          ],
+                        ))),
+                  ],
+                )),
+          ],
+        ),
       ),
     );
   }

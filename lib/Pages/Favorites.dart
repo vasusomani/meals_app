@@ -3,7 +3,6 @@ import 'package:meals_app/Util/SideDrawer.dart';
 import 'package:meals_app/Util/favouritesList.dart';
 
 import '../Util/OverlappingContainer.dart';
-import 'Categories.dart';
 import 'MealDetails.dart';
 
 class Favorites extends StatefulWidget {
@@ -64,9 +63,12 @@ class _FavoritesState extends State<Favorites> {
                         width: double.infinity,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            favoritesList[index].imageUrl,
-                            fit: BoxFit.cover,
+                          child: Hero(
+                            tag: favoritesList[index].id,
+                            child: Image.network(
+                              favoritesList[index].imageUrl,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),

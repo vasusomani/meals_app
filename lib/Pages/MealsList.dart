@@ -68,9 +68,12 @@ class MealsList extends ConsumerWidget {
                         width: double.infinity,
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            filteredMeals[index].imageUrl,
-                            fit: BoxFit.cover,
+                          child: Hero(
+                            tag: filteredMeals[index].id,
+                            child: Image.network(
+                              filteredMeals[index].imageUrl,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
