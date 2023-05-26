@@ -1,6 +1,6 @@
 # meals_app
 
-A new Flutter project.
+A new Flutter projec with the help of State Managment and Animation techniques.
 
 ## Getting Started
 
